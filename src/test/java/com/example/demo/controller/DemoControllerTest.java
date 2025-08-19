@@ -54,20 +54,20 @@ class DemoControllerTest {
     @Test
     void testEdgeCases() throws Exception {
         // Empty string: 400 Bad Request
-        mockMvc.perform(get("/remove").param("input", ""))
+        mockMvc.perform(get("/remove").param("originalStr", ""))
                 .andExpect(status().isBadRequest());
 
         // 1 char string: 400 Bad Request
-        mockMvc.perform(get("/remove").param("input", "a"))
+        mockMvc.perform(get("/remove").param("originalStr", "a"))
                 .andExpect(status().isBadRequest());
 
         // 2 char string: empty string response
-        mockMvc.perform(get("/remove").param("input", "ab"))
+        mockMvc.perform(get("/remove").param("originalStr", "ab"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
 
         // 3 char string: middle char only
-        mockMvc.perform(get("/remove").param("input", "abc"))
+        mockMvc.perform(get("/remove").param("originalStr", "abc"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("b"));
     }
@@ -75,17 +75,17 @@ class DemoControllerTest {
     @Test
     void testStringsWithNumbersAndSpecialChars() throws Exception {
         // "12345" -> "234"
-        mockMvc.perform(get("/remove").param("input", "12345"))
+        mockMvc.perform(get("/remove").param("originalStr", "12345"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("234"));
 
         // "@!#&*" -> "!#&"
-        mockMvc.perform(get("/remove").param("input", "@!#&*"))
+        mockMvc.perform(get("/remove").param("originalStr", "@!#&*"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("!#&"));
 
         // "a1b2c3" -> "1b2c"
-        mockMvc.perform(get("/remove").param("input", "a1b2c3"))
+        mockMvc.perform(get("/remove").param("originalStr", "a1b2c3"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("1b2c"));
     }
