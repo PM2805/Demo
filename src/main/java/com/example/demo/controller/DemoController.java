@@ -3,13 +3,14 @@ package com.example.demo.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.service.annotation.GetExchange;
 
 @Controller
 public class DemoController {
 
-    @GetExchange("/remove")
+    @GetMapping("/remove")
     public ResponseEntity<String> remove(@RequestParam("originalStr") String originalStr)
     {
 
